@@ -2,14 +2,14 @@ import React, {Component} from 'react'
 
 // Redux
 import { connect } from 'react-redux';
-import { loginUser } from '../redux/actions/userActions';
+import { signupUser } from '../redux/actions/userActions';
 
 
-class login extends Component {
+class signup extends Component {
     state={
         email: "",
         password: "",
-        errors: []
+        errors: {}
     }
     updateEmail = (event) => {
         this.setState({
@@ -28,20 +28,12 @@ class login extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        this.props.loginUser(userData, this.props.history)
-    }
-    componentWillReceiveProps(nextProps){
-        if (nextProps.user.errors){
-            this.setState({
-                errors: nextProps.user.errors
-            })
-        }
+        this.props.signupUser(userData, this.props.history)
     }
     render(){
-        const { errors } = this.state
         return (
             <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center", textAlign: "center"}}>
-                <h1 style={{flexBasis: "100%"}}>Login</h1>
+                <h1 style={{flexBasis: "100%"}}>Signup</h1>
                 <form onSubmit={this.handleSubmit}>
                     <label>Email</label>
                     <br/>
@@ -64,11 +56,8 @@ class login extends Component {
                     />
                     <br/>
                     <button type="submit">
-                        Login
+                        Signup
                     </button>
-                    {errors && (
-                        <p>{errors}</p>
-                    )}
                 </form>
             </div>
         )
@@ -80,7 +69,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapActionsToProps = {
-    loginUser,
+    signupUser,
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(login);
+export default connect(mapStateToProps, mapActionsToProps)(signup);

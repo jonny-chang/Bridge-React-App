@@ -4,7 +4,7 @@ const initialState = {
     authenticated: false,
     loading: false,
     email: "",
-    errors: {}
+    errors: []
 }
 
 export default function(state = initialState, action){
@@ -12,7 +12,8 @@ export default function(state = initialState, action){
         case SET_AUTHENTICATED:
             return {
                 ...state,
-                authenticated: true
+                authenticated: true,
+                errors: []
             };
         case SET_UNAUTHENTICATED:
             return initialState
@@ -25,7 +26,7 @@ export default function(state = initialState, action){
             return {
                 authenticated: true,
                 loading: false,
-                email: action.payload.email
+                email: action.payload.email,
             };
         case SET_USER_ERRORS:
             return{
