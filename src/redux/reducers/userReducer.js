@@ -1,4 +1,4 @@
-import { SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER, SET_USER_ERRORS } from '../types'
+import { SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER, SET_USER_ERRORS, SET_EMAIL } from '../types'
 
 const initialState = {
     authenticated: false,
@@ -33,6 +33,13 @@ export default function(state = initialState, action){
                 authenticated: false,
                 loading: false,
                 errors: action.payload.message
+            }
+        case SET_EMAIL:
+            return{
+                authenticated: true,
+                loading: false,
+                email: action.paylaod,
+                errors: []
             }
         default:
             return state

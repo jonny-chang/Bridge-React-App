@@ -24,6 +24,7 @@ def verify_login():
     if user.exists:
         user_dict = user.to_dict()
         return_statement = "The password entered is not correct."
+        print(user_dict['password'])
         if user_dict['password'] == pwd:
             return {'email': email, 'pwd': pwd, 'status': 1, 'message': 'Successful Login', 'expire': exp}
         else:
@@ -57,6 +58,20 @@ def register_user():
 
     except:
         return {'status': 0, 'message': 'Something went wrong. Please try again later.'}
+
+
+@app.route("/delete-user", methods=["GET"])
+def delete_user():
+    try:
+        users_ref = db.collection(u'users')
+        user = users_ref.document(u'' + request.args['email']).get()
+        if not user.exists:
+            return {'status': 0}
+
+        users_ref.document(u''+request.args['email']).delete()
+        return {"status": 1}
+    except:
+        return {"status": 0}
 
 
 def check_password(password):
