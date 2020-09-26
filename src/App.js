@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Pages
 import home from './pages/home'
+import login from './pages/login'
 
 // Redux
 import { Provider } from 'react-redux';
@@ -16,6 +17,7 @@ function App() {
           <Router>
             <div className="container">
               <Switch>
+                <Route exact path='/login' component={login}/>
                 <Route path='/' component={home}/>
               </Switch>
             </div>
