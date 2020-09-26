@@ -1,8 +1,10 @@
-import { SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER } from '../types'
+import { SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER, SET_USER_ERRORS } from '../types'
 
 const initialState = {
     authenticated: false,
-    loading: false
+    loading: false,
+    email: "",
+    errors: {}
 }
 
 export default function(state = initialState, action){
@@ -23,8 +25,14 @@ export default function(state = initialState, action){
             return {
                 authenticated: true,
                 loading: false,
-                ...action.payload
+                email: action.payload.email
             };
+        case SET_USER_ERRORS:
+            return{
+                authenticated: false,
+                loading: false,
+                errors: action.payload.message
+            }
         default:
             return state
     }

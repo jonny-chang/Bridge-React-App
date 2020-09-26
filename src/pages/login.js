@@ -39,7 +39,7 @@ class login extends Component {
                     <br/>
                     <input 
                     name="email" 
-                    type="email" 
+                    type="text" 
                     onChange={this.updateEmail} 
                     value={this.state.email}
                     aria-label="Email"
