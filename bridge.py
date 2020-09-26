@@ -1,4 +1,5 @@
 import os
+import time
 from google.cloud import firestore
 from flask import Flask, request
 from flask_cors import CORS
@@ -16,7 +17,10 @@ def verify_login():
     users_ref = db.collection(u'users')
     email = request.args['email']
     pwd = request.args['pwd']
-    exp = str(datetime.today() + timedelta(days=1))
+
+    d = (datetime.today() + timedelta(days=1)).strftime("%Y-%m-%d %H:%M:%S")
+    d = time.strptime(d, "%Y-%m-%d %H:%M:%S")
+    exp = int(time.mktime(d))
 
     return_statement = "This user does not exist."
     user = users_ref.document(u''+email).get()

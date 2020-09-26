@@ -18,60 +18,20 @@ import { SET_EMAIL } from './redux/types';
 
 const date = localStorage.exp
 const email = localStorage.email
-const currentDate = new Date()
-
-const formatJSDate = (JSDate) => {
-  const ret = {
-    year: JSDate.getYear() + 1900,
-    month: JSDate.getMonth(),
-    day: JSDate.getDay(),
-    time: JSDate.getTime()
-  }
-  return ret
-}
-
-const formatStringDate = (StringDate) => {
-  const ret = {
-    year: parseInt(StringDate.substring(0, 4)),
-    month: parseInt(StringDate.substring(5, 7)),
-    day: parseInt(StringDate.substring(8, 10)),
-    time: 0
-  }
-  const hours = parseInt(StringDate.substring(11, 13))
-  const minutes = parseInt(StringDate.substring(14, 16))
-  const seconds = parseInt(StringDate.substring(17, 19))
-  const millis = hours * 3600000 + minutes * 60000 + seconds * 1000
-  ret.time = millis
-  return ret
-}
-
-const compareDate = (cur, exp) => {
-  if (cur.year > exp.year){
-    return false
-  }
-  if (cur.month > exp.month){
-    return false
-  }
-  if (cur.day > exp.day){
-    return false
-  }
-  if (cur.time > exp.time){
-    return false
-  }
-  return true;
-}
+const currentDate = new Date().getTime()
+console.log("current: " + currentDate)
 
 if (date){
-if (compareDate(formatJSDate(currentDate), formatStringDate(date)) == false){
-  store.dispatch(logoutUser())
-  window.location.href = '/login';
-}
-else {
-  store.dispatch({
-    type: SET_EMAIL,
-    payload: email
-  });
-}
+  if (date * 1000 < currentDate){
+    store.dispatch(logoutUser())
+    window.location.href = '/login';
+  }
+  else {
+    store.dispatch({
+      type: SET_EMAIL,
+      payload: email
+    });
+  }
 }
 
 function App() {
