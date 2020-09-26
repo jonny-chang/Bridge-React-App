@@ -2,6 +2,7 @@ import os
 from google.cloud import firestore
 from flask import Flask, request
 from flask_cors import CORS
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 CORS(app)
@@ -13,22 +14,56 @@ db = firestore.Client()
 @app.route("/verify-login", methods=["GET"])
 def verify_login():
     users_ref = db.collection(u'users')
-    docs = users_ref.stream()
-
     email = request.args['email']
     pwd = request.args['pwd']
+    exp = str(datetime.today() + timedelta(days=1))
 
     return_statement = "This user does not exist."
-    for doc in docs:
-        if doc.id == email:
-            user = doc.to_dict()
-            return_statement = "The password you entered is incorrect."
-            if user['password'] == pwd:
-                return {'email': email, 'pwd': pwd, 'status': 1, 'message': 'Successful Login'}
-            else:
-                return{'email': email, 'pwd': pwd, 'status': 0, 'message': return_statement}
+    user = users_ref.document(u''+email).get()
 
-    return {'email': email, 'pwd': pwd, 'status': 0, 'message': return_statement}
+    if user.exists:
+        user_dict = user.to_dict()
+        return_statement = "The password entered is not correct."
+        if user_dict['password'] == pwd:
+            return {'email': email, 'pwd': pwd, 'status': 1, 'message': 'Successful Login', 'expire': exp}
+        else:
+            return {'email': email, 'pwd': pwd, 'status': 0, 'message': return_statement, 'expire': exp}
+
+    return {'email': email, 'pwd': pwd, 'status': 0, 'message': return_statement, 'expire': exp}
+
+
+@app.route("/register-user", methods=["GET"])
+def register_user():
+    users_ref = db.collection(u'users')
+    email = request.args['email']
+
+    data = {
+        u'password': request.args['pwd'],
+        u'fname': request.args['fname'],
+        u'lname': request.args['lname']
+    }
+
+    try:
+        user = users_ref.document(u''+email).get()
+        if user.exists:
+            return {'status': 0, 'message': 'That email is already registered in our database.'}
+
+        password_stat, message = check_password(request.args['pwd'])
+        if not password_stat:
+            return {'status': 0, 'message': message}
+
+        users_ref.document(u''+email).set(data)
+        return {'status': 1, 'message': 'User successfully registered.'}
+
+    except:
+        return {'status': 0, 'message': 'Something went wrong. Please try again later.'}
+
+
+def check_password(password):
+    if len(password) < 6:
+        return False, "Password must be 6 characters or longer."
+
+    return True, ""
 
 
 if __name__ == '__main__':
