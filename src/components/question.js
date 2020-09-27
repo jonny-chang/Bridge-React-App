@@ -15,7 +15,7 @@ const MainContainer = styled.div`
 const Question = styled.h2`
     font-family: 'Circular Std Bold';
     color: var(--blue1);
-    font-size: 3.2em;
+    font-size: 2.8em;
     width: 595px;
     text-align: left;
 `
