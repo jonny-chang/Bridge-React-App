@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AuthRoute from './util/AuthRoute'
 import UnAuthRoute from './util/UnAuthRoute'
+import Sidebar from './components/Sidebar'
 
 // Pages
 import home from './pages/home'
@@ -34,7 +35,8 @@ function App() {
   return (
     <Provider store={store}>
           <Router>
-            <div className="container">
+            {/* <Sidebar/> */}
+            <div>
               <Switch>
                 <Route exact path='/login' component={login}/>
                 <Route exact path='/signup' component={signup}/>
