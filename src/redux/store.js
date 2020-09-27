@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 // Reducers
 import userReducer from './reducers/userReducer';
 import dataReducer from './reducers/dataReducer';
+import questionReducer from './reducers/questionReducer';
 
 // Init state
 const initialState = {};
@@ -14,6 +15,7 @@ const middleware = [thunk];
 const reducers = combineReducers({
     user: userReducer,
     data: dataReducer,
+    questions: questionReducer
 })
 
 // Init store

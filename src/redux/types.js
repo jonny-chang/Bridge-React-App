@@ -6,3 +6,7 @@ export const LOADING_USER = 'LOADING_USER';
 export const SET_USER_ERRORS = 'SET_USER_ERRORS';
 export const SET_EMAIL = 'SET_EMAIL';
 
+// Question types
+export const SET_STEP = 'SET_STEP';
+export const SET_ANSWER = 'SET_ANSWER';
+export const CLEAR_ANSWERS = 'CLEAR_ANSWERS';

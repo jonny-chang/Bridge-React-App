@@ -9,6 +9,7 @@ import home from './pages/home'
 import login from './pages/login'
 import signup from './pages/signup'
 import signupSuccess from './pages/signup-success'
+import questionnaire from './pages/questionnaire'
 
 // Redux
 import { Provider } from 'react-redux';
@@ -40,10 +41,11 @@ function App() {
           <Router>
             <div className="container">
               <Switch>
-                <UnAuthRoute exact path='/login' component={login}/>
-                <UnAuthRoute exact path='/signup' component={signup}/>
-                <UnAuthRoute exact path='/signup-success' component={signupSuccess}/>
-                <AuthRoute exact path='/' component={home}/>
+                <Route exact path='/login' component={login}/>
+                <Route exact path='/signup' component={signup}/>
+                <Route exact path='/signup-success' component={signupSuccess}/>
+                <Route exact path='/questions' component={questionnaire}/>
+                <Route exact path='/' component={home}/>
               </Switch>
             </div>
           </Router>

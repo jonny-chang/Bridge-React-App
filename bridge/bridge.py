@@ -78,6 +78,23 @@ def delete_user():
         return {"status": 0}
 
 
+@app.route("/get-question", methods=["GET"])
+def get_question():
+    question_id = request.args['id']
+
+    try:
+        questions_ref = db.collection(u'questions')
+        question = questions_ref.document(u'' + request.args['id']).get()
+        if not question.exists:
+            return {'status': 0, 'question': '', 'category': '', 'message': 'Question does not exist.'}
+
+        question_dict = question.to_dict()
+        return {'status': 1, 'question': question_dict['question'], 'category': question_dict['category'], 'message': 'Success.'}
+
+    except:
+        return {"status": 0, 'question': '', 'category': '', 'message': 'Something went wrong. Please try again later.'}
+
+
 def check_password(password):
     if len(password) < 6:
         return False, "Password must be 6 characters or longer."
