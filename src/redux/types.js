@@ -10,3 +10,4 @@ export const SET_EMAIL = 'SET_EMAIL';
 export const SET_STEP = 'SET_STEP';
 export const SET_ANSWER = 'SET_ANSWER';
 export const CLEAR_ANSWERS = 'CLEAR_ANSWERS';
+export const SET_QUESTIONS = 'SET_QUESTIONS';

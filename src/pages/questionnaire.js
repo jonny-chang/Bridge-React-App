@@ -3,25 +3,18 @@ import styled from 'styled-components'
 import Question from '../components/question'
 
 import { connect } from 'react-redux'
-// import { setAnswer, setStep, clearAnswers } from '../redux/actions/questionActions'
+import { setAnswer, setStep, clearAnswers, getQuestions } from '../redux/actions/questionActions'
 
 class questionnaire extends Component {
+    componentDidMount(){
+        this.props.getQuestions();
+    }
+    componentWillUnmount(){
+        this.props.clearAnswers();
+    }
     render(){
         const { currentQ } = this.props.questions
-        switch(currentQ) {
-            case 0:
-                return (
-                    <Question 
-                    q="What do you think of Trump?"/>
-                )
-            case 1:
-                return (
-                    <Question 
-                    q="What do you think of Trump?"/>
-                )
-            default:
-                return (<div/>)
-        }
+        return(<div></div>)
     }
 }
 
@@ -32,9 +25,10 @@ const mapStateToProps = (state) => ({
 })
 
 const mapActionsToProps = {
-    // setAnswer, 
-    // setStep, 
-    // clearAnswers
+    setAnswer, 
+    setStep, 
+    clearAnswers,
+    getQuestions
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(questionnaire);
