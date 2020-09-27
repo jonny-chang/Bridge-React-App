@@ -25,6 +25,7 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -58,6 +59,9 @@
           appId: "tvziCsZk",
           me: me
       });
+      var conversation = talkSession.getOrCreateConversation("aduYRjBk2")
+      conversation.setParticipant(me);
+      console.log(conversation);
       // var other = new Talk.User({
       //     id: "654321",
       //     name: "Sebastian",
@@ -70,11 +74,20 @@
       // conversation.setParticipant(me);
       // conversation.setParticipant(other);
 
-      //var inbox = talkSession.createInbox({selected: conversation});
+      var inbox = talkSession.createInbox({selected: conversation});
 
-      var inbox = talkSession.createInbox({});
+      //var inbox = talkSession.createInbox({});
 
       inbox.mount(document.getElementById("talkjs-container"));
+
+      $.fn.fixedPosition = function () {
+          var rect = this.getBoundingClientRect();
+          return {
+              x: rect.left,
+              y: rect.top
+          };
+      };
+
     });
       </script>
   </body>
