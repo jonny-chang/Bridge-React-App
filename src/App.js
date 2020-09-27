@@ -11,6 +11,8 @@ import login from './pages/login'
 import signup from './pages/signup'
 import signupSuccess from './pages/signup-success'
 import questionnaire from './pages/questionnaire'
+import news from './pages/news'
+import chat from './pages/chat'
 
 // Redux
 import { Provider } from 'react-redux';
@@ -42,6 +44,8 @@ function App() {
                 <Route exact path='/signup' component={signup}/>
                 <Route exact path='/signup-success' component={signupSuccess}/>
                 <Route exact path='/questions' component={questionnaire}/>
+                <Route exact path='/news' component={news}/>
+                <Route exact path='/chat' component={chat}/>
                 <Route exact path='/' component={home}/>
               </Switch>
             </div>

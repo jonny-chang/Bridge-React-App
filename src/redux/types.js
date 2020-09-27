@@ -11,3 +11,6 @@ export const SET_STEP = 'SET_STEP';
 export const SET_ANSWER = 'SET_ANSWER';
 export const CLEAR_ANSWERS = 'CLEAR_ANSWERS';
 export const SET_QUESTIONS = 'SET_QUESTIONS';
+
+// Data types
+export const SET_NEWS = 'SET_NEWS'

@@ -35,7 +35,7 @@ export const loginUser = (userData, history) => (dispatch) => {
     .then(
       (result) => {
         if (result.status == 1){
-          history.push('/signup-success')
+          history.push('/login')
         }
         else (
             dispatch({
