@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AuthRoute from './util/AuthRoute'
 import UnAuthRoute from './util/UnAuthRoute'
+import Sidebar from './components/Sidebar'
 
 // Pages
 import home from './pages/home'
@@ -14,13 +15,11 @@ import questionnaire from './pages/questionnaire'
 // Redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import {logoutUser, setUser} from './redux/actions/userActions'
-import { SET_EMAIL } from './redux/types';
+import {logoutUser, setEmail} from './redux/actions/userActions'
 
 const date = localStorage.exp
 const email = localStorage.email
 const currentDate = new Date().getTime()
-console.log("current: " + currentDate)
 
 if (date){
   if (date * 1000 < currentDate){
@@ -28,10 +27,7 @@ if (date){
     window.location.href = '/login';
   }
   else {
-    store.dispatch({
-      type: SET_EMAIL,
-      payload: email
-    });
+    store.dispatch(setEmail(email))
   }
 }
 
@@ -39,7 +35,8 @@ function App() {
   return (
     <Provider store={store}>
           <Router>
-            <div className="container">
+            {/* <Sidebar/> */}
+            <div>
               <Switch>
                 <Route exact path='/login' component={login}/>
                 <Route exact path='/signup' component={signup}/>

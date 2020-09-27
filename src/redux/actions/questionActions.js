@@ -21,31 +21,47 @@ export const clearAnswers = () => (dispatch) => {
 } 
 
 export const getQuestions = () => (dispatch) => {
-    let done = false;
-    let index = 1;
     let qArr = [];
-    while (!done){
-        fetch(`http://localhost:5000/get-question?id=${index}`)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    if(result.status === 1){
-                        qArr.push(result.question)
-                        index++
-                    }
-                    else{
-                        done = true
-                    }
-                },
-                (error) => {
-                    console.log(error)
-                }
-            )
-    }
-    dispatch({
-        type: SET_QUESTIONS,
-        payload: qArr,
-        qLength: qArr.length
-    })
+
+    fetch(`http://13.57.251.106/get-questions`)
+        .then(res => res.json())
+        .then(
+            (result) => {
+                dispatch({
+                    type: SET_QUESTIONS,
+                    payload: result,
+                })
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
+    
 }
 
+export const analyze = (ans, used_other, id, email) => (dispatch) => {
+    if (used_other){
+        fetch(`http://13.57.251.106/process-answer-sentiment?used_other=true&id=${id}&other_text=${ans}&email=${email}`)
+        .then(res => res.json())
+        .then(
+            (result) => {
+                console.log(result)
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
+    }
+    else {
+        fetch(`http://13.57.251.106/process-answer-sentiment?used_other=&id=${id}&sent_score=${ans}&email=${email}`)
+        .then(res => res.json())
+        .then(
+            (result) => {
+                console.log(result)
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
+    }
+}

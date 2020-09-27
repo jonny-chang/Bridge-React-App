@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import { connect } from 'react-redux'
-import { setAnswer, setStep, clearAnswers } from '../redux/actions/questionActions'
+import { setAnswer, setStep, clearAnswers, analyze } from '../redux/actions/questionActions'
 
 const MainContainer = styled.div`
     display: grid;
@@ -15,7 +15,7 @@ const MainContainer = styled.div`
 const Question = styled.h2`
     font-family: 'Circular Std Bold';
     color: var(--blue1);
-    font-size: 3.2em;
+    font-size: 2.8em;
     width: 595px;
     text-align: left;
 `
@@ -112,29 +112,37 @@ class question extends Component {
         this.setState({
             [event.target.name]: event.target.value
         })
-        if (event.target.value !== ""){
-            this.setState({
-                visible: false
-            })
-        }
-        else {
-            this.setState({
-                visible: true
-            })
-        }
     }
     handleSubmit = (event) => {
-        console.log(this.state.other)
+        if (this.state.other !== ""){
+            this.props.analyze(this.state.other, true, this.props.questions.currentQ, this.props.user.email)
+            this.props.setStep(this.props.questions.currentQ + 1)
+        }
+        this.setState({
+            other: ""
+        })
+    }
+    handleSAgree = (event) => {
+        this.props.analyze(1, false, this.props.questions.currentQ, this.props.user.email)
+        this.props.setStep(this.props.questions.currentQ + 1)
+    }
+    handleSDisagree = (event) => {
+        this.props.analyze(-1, false, this.props.questions.currentQ, this.props.user.email)
+        this.props.setStep(this.props.questions.currentQ + 1)
+    }
+    handleAgree = (event) => {
+        this.props.analyze(0.5, false, this.props.questions.currentQ, this.props.user.email)
+        this.props.setStep(this.props.questions.currentQ + 1)
+    }
+    handleDisagree = (event) => {
+        this.props.analyze(-0.5, false, this.props.questions.currentQ, this.props.user.email)
+        this.props.setStep(this.props.questions.currentQ + 1)
     }
     render(){
         const { q } = this.props
         return (
             <MainContainer>
-                <div>
-                    <BackButton style={{outline: "none"}}>
-                        Back
-                    </BackButton>
-                </div>
+                <div/>
                 <div>
                     <div style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr"}}>
                         <div/>
@@ -151,16 +159,16 @@ class question extends Component {
                 <AnswersContainer>
                     <div/>
                     <AnswersSubContainer>
-                        <AnswerButton style={{outline: "none"}}>
+                        <AnswerButton style={{outline: "none"}} onClick={this.handleSAgree}>
                             I strongly agree
                         </AnswerButton>
-                        <AnswerButton style={{outline: "none"}}>
+                        <AnswerButton style={{outline: "none"}} onClick={this.handleSDisagree}>
                             I strongly disagree
                         </AnswerButton>
-                        <AnswerButton style={{outline: "none"}}>
+                        <AnswerButton style={{outline: "none"}} onClick={this.handleAgree}>
                             I agree
                         </AnswerButton>
-                        <AnswerButton style={{outline: "none"}}>
+                        <AnswerButton style={{outline: "none"}} onClick={this.handleDisagree}>
                             I disagree
                         </AnswerButton>
                     </AnswersSubContainer>
@@ -200,9 +208,10 @@ const mapStateToProps = (state) => ({
 })
 
 const mapActionsToProps = {
-    // setAnswer, 
-    // setStep, 
-    // clearAnswers
+    setAnswer, 
+    setStep, 
+    clearAnswers,
+    analyze
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(question);
