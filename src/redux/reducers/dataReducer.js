@@ -1,11 +1,17 @@
-import { SET_NEWS } from '../types'
+import { SET_NEWS, SET_CID } from '../types'
 
 const initialState = {
-    news: []
+    news: [],
+    CID: ""
 }
 
 export default function(state = initialState, action){
-    switch(action.type){    
+    switch(action.type){
+        case SET_CID:
+            return {
+                ...state,
+                CID: action.payload
+            }    
         case SET_NEWS:
             return {
                 ...state,

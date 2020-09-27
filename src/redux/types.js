@@ -14,3 +14,4 @@ export const SET_QUESTIONS = 'SET_QUESTIONS';
 
 // Data types
 export const SET_NEWS = 'SET_NEWS'
+export const SET_CID = 'SET_CID'

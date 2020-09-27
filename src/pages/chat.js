@@ -12,7 +12,7 @@ class chat extends Component {
     }
     _handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-            fetch(`http://13.57.251.106/send-message?user=${this.props.user.email}&message=${e.target.value}&`)
+            fetch(`http://13.57.251.106/send-message?user=${this.props.user.email}&message=${e.target.value}&conversationID=${this.props.data.CID}`)
             .then(res => res.json())
             .then(
               (result) => {
