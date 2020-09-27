@@ -4,6 +4,7 @@ from google.cloud import firestore
 from flask import Flask, request
 from flask_cors import CORS
 from datetime import datetime, timedelta
+from bridge import diagnostic_test
 
 app = Flask(__name__)
 CORS(app)
@@ -95,11 +96,60 @@ def get_question():
         return {"status": 0, 'question': '', 'category': '', 'message': 'Something went wrong. Please try again later.'}
 
 
+@app.route("/process-answer-sentiment", methods=["GET"])
+def analyze_answer_sentiment():
+    used_other = request.args['used_other']
+    id = request.args['id']
+    email = request.args['email']
+    question = db.collection(u'questions').document(u'' + str(id)).get().to_dict()
+
+    try:
+        if used_other:
+            other_text = request.args['other_text']
+
+            keywords = question['keywords'].split()
+            weights = [float(x) for x in question['weights'].split()]
+
+            keyword_dict = {}
+
+            for i in range(0, len(keywords)):
+                keyword_dict[keywords[i]] = weights[i]
+
+            other_sent = diagnostic_test.get_answer_sentiment(other_text, keyword_dict)
+            update_sent(question['category'], other_sent, email)
+
+            return {'status': 1, 'message': 'Success!'}
+
+        else:
+            sent = request.args['sent_score']
+            update_sent(question['category'], sent, email)
+
+            return {'status': 1, 'message': 'Success!'}
+
+    except:
+        return {'status': 0, 'message': 'An error occured. Please try again later.'}
+
+
 def check_password(password):
     if len(password) < 6:
         return False, "Password must be 6 characters or longer."
 
     return True, ""
+
+
+def update_sent(category, sentiment, email):
+    user = db.collection(u'users').document(u''+email)
+    user_dict = user.get().to_dict()
+
+    if category in user_dict:
+        curr_sent = user_dict[category]
+        user_dict[category] = curr_sent*0.7 + sentiment*0.3
+
+        user.set(user_dict)
+
+    else:
+        user_dict[category] = sentiment
+        user.set(user_dict)
 
 
 if __name__ == '__main__':
