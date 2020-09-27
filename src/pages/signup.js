@@ -1,9 +1,60 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
+import styled from 'styled-components'
+import Background from '../images/signup-background.png';
 
 // Redux
 import { connect } from 'react-redux';
 import { signupUser } from '../redux/actions/userActions';
 
+const SignupContainer = styled.div`
+    display: block;
+    width: 500px;
+    padding: 40px 70px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+    border-radius: 16px;
+    position: absolute;
+    right: 50px;
+    top: 50px;
+    margin-bottom: 50px;
+`
+
+const Title = styled.h1`
+    margin-top: 46px;
+    text-align: center;
+    font-family: 'Circular Std Bold';
+    color: var(--blue1);
+`
+
+const TopInput = styled.input`
+    font-family: "Circular Std Book";
+    font-size: 23px;
+    margin-top: 40px;
+`
+
+const MiddleInput = styled.input`
+    font-family: "Circular Std Book";
+    font-size: 23px;
+    margin-top: 25px;
+`
+
+const LastInput = styled.input`
+    font-family: "Circular Std Book";
+    font-size: 23px;
+    margin-top: 25px;
+    margin-bottom: 80px;
+`
+
+const SignupButton = styled.button`
+    background-color: var(--blue1);
+    color: #eee;
+    font-family: 'Circular Std Bold';
+    margin-bottom: 46px;
+    &:hover {
+        color: #fff;
+    }
+`
 
 class signup extends Component {
     state={
@@ -49,58 +100,69 @@ class signup extends Component {
     render(){
         const { errors } = this.state
         return (
-            <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center", textAlign: "center"}}>
-                <h1 style={{flexBasis: "100%"}}>Signup</h1>
-                <form onSubmit={this.handleSubmit}>
-                <label>First Name</label>
-                    <br/>
-                    <input 
-                    name="fname" 
-                    type="text" 
-                    onChange={this.updateName} 
-                    value={this.state.fname}
-                    aria-label="Fname"
-                    />
-                    <br/>
-                    <label>LastName</label>
-                    <br/>
-                    <input 
-                    name="lname" 
-                    type="text" 
-                    onChange={this.updateName} 
-                    value={this.state.lname}
-                    aria-label="Lname"
-                    />
-                    <br/>
-                    <label>Email</label>
-                    <br/>
-                    <input 
-                    name="email" 
-                    type="text" 
-                    onChange={this.updateEmail} 
-                    value={this.state.email}
-                    aria-label="Email"
-                    />
-                    <br/>
-                    <label>Password</label>
-                    <br/>
-                    <input 
-                    name="password" 
-                    type="password" 
-                    onChange={this.updatePassword} 
-                    value={this.state.password}
-                    aria-label="Password"
-                    />
-                    <br/>
-                    <button type="submit">
-                        Signup
-                    </button>
-                    {errors && (
-                        <p>{errors}</p>
-                    )}
-                </form>
-                
-            </div>
+            <Fragment>
+                <div>
+                    <SignupContainer>
+                        <Title>Signup</Title>
+                        <form onSubmit={this.handleSubmit}>
+                            <TopInput 
+                            name="fname" 
+                            type="text" 
+                            onChange={this.updateName} 
+                            value={this.state.fname}
+                            aria-label="Fname"
+                            className="form-control"
+                            placeholder="First Name"
+                            />
+                            <MiddleInput 
+                            name="lname" 
+                            type="text" 
+                            onChange={this.updateName} 
+                            value={this.state.lname}
+                            aria-label="Lname"
+                            className="form-control"
+                            placeholder="Last Name"
+                            />
+                            <MiddleInput 
+                            name="email" 
+                            type="text" 
+                            onChange={this.updateEmail} 
+                            value={this.state.email}
+                            aria-label="Email"
+                            className="form-control"
+                            placeholder="Email"
+                            />
+                            <LastInput 
+                            name="password" 
+                            type="password" 
+                            onChange={this.updatePassword} 
+                            value={this.state.password}
+                            aria-label="Password"
+                            className="form-control"
+                            placeholder="Password"
+                            />
+                            <br/>
+                            <SignupButton type="submit" className="btn btn-block btn-lg">
+                                Signup
+                            </SignupButton>
+                        </form>
+                    </SignupContainer>
+                    <div className="container" style={{paddingTop: "70px", paddingBottom: "70px"}}>
+                        <Title style={{textAlign: "left", fontSize: "3em", marginTop: "0", transform: "translateX(-60px)"}}>Bridge The Gap</Title>
+                        <h5 style={{fontFamily: "Circular Std Book", fontSize: "2em", transform: "translateX(-60px)", marginTop: "15px"}}>Meet new people<br/> Learn new experiences</h5>
+                    </div>
+                </div>
+                <div 
+                style={{
+                    width: "100%", 
+                    height: "85vh", 
+                    backgroundImage: `url(${Background})`, 
+                    position: "absolute", 
+                    zIndex: "-1", 
+                    left: "0",
+                    backgroundSize: "cover",
+                }}/>
+            </Fragment>
         )
     }
 }

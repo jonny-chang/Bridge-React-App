@@ -5,6 +5,9 @@ import styled from 'styled-components'
 import { connect } from 'react-redux';
 import { loginUser } from '../redux/actions/userActions';
 
+import svg1 from '../images/svg1.svg';
+import svg2 from '../images/svg2.svg';
+
 const LoginContainer = styled.div`
     display: block;
     width: 500px;
@@ -21,7 +24,7 @@ const Title = styled.h1`
     margin-top: 46px;
     text-align: center;
     font-family: 'Circular Std Bold';
-    color: #DA2D8D;
+    color: var(--blue1);
 `
 
 const EmailInput = styled.input`
@@ -38,7 +41,7 @@ const PasswordInput = styled.input`
 `
 
 const LoginButton = styled.button`
-    background-color: #DA2D8D;
+    background-color: var(--blue1);
     color: #eee;
     font-family: 'Circular Std Bold';
     &:hover {
@@ -82,7 +85,19 @@ class login extends Component {
     render(){
         const { errors } = this.state
         return (
-            <div className="container-fluid">
+            <div className="container-fluid" >
+                <img src={svg1} 
+                style={{width: "400px", position: "absolute", bottom: "0", zIndex: "-1", right: "0"}}/>
+                <img src={svg2} 
+                style={{width: "300px", position: "absolute", bottom: "0", zIndex: "-1", left: "0"}}/>
+                {errors.length !== 0 && (
+                    <div 
+                    class="alert alert-danger" 
+                    role="alert" 
+                    style={{marginTop: "10px", textAlign: "center"}}>
+                        <p>{errors}</p>
+                    </div>
+                )}
                 <LoginContainer>
                     <Title>Login</Title>
                     <form onSubmit={this.handleSubmit}>
