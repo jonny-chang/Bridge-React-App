@@ -14,8 +14,7 @@ import questionnaire from './pages/questionnaire'
 // Redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import {logoutUser, setUser} from './redux/actions/userActions'
-import { SET_EMAIL } from './redux/types';
+import {logoutUser, setEmail} from './redux/actions/userActions'
 
 const date = localStorage.exp
 const email = localStorage.email
@@ -27,10 +26,7 @@ if (date){
     window.location.href = '/login';
   }
   else {
-    store.dispatch({
-      type: SET_EMAIL,
-      payload: email
-    });
+    store.dispatch(setEmail(email))
   }
 }
 

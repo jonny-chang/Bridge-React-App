@@ -41,7 +41,7 @@ export default function(state = initialState, action){
                 ...state,
                 authenticated: true,
                 loading: false,
-                email: action.paylaod,
+                email: action.payload,
                 errors: []
             }
         default:

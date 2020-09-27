@@ -23,7 +23,7 @@ export const clearAnswers = () => (dispatch) => {
 export const getQuestions = () => (dispatch) => {
     let qArr = [];
 
-    fetch(`http://localhost:5000/get-questions`)
+    fetch(`http://13.57.251.106/get-questions`)
         .then(res => res.json())
         .then(
             (result) => {
@@ -41,7 +41,7 @@ export const getQuestions = () => (dispatch) => {
 
 export const analyze = (ans, used_other, id, email) => (dispatch) => {
     if (used_other){
-        fetch(`http://localhost:5000/analyze-answer-sentiment?used_other="true"&id=${id}&text=${ans}&email=${email}`)
+        fetch(`http://13.57.251.106/process-answer-sentiment?used_other=true&id=${id}&other_text=${ans}&email=${email}`)
         .then(res => res.json())
         .then(
             (result) => {
@@ -53,7 +53,7 @@ export const analyze = (ans, used_other, id, email) => (dispatch) => {
         )
     }
     else {
-        fetch(`http://localhost:5000/analyze-answer-sentiment?used_other=""&id=${id}&sent_score=${ans}&email=${email}`)
+        fetch(`http://13.57.251.106/process-answer-sentiment?used_other=&id=${id}&sent_score=${ans}&email=${email}`)
         .then(res => res.json())
         .then(
             (result) => {
