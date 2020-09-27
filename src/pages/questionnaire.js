@@ -76,7 +76,7 @@ class questionnaire extends Component {
                         <br/> us determine your opinions on several polarizing topics, helping us
                         <br/> pair you up with others who have different views to you.
                     </p>
-                    <StartButton onClick={this.handleStart}>Begin</StartButton>
+                    <StartButton onClick={this.handleStart} style={{outline: "none"}}>Begin</StartButton>
                 </div>
             )
         }

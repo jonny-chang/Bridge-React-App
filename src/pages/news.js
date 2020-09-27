@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import NewsCard from '../components/NewsCard'
 
 import {setNews} from '../redux/actions/dataActions'
+import Fade from 'react-reveal/Fade'
 
 
 class news extends Component {
@@ -10,13 +11,21 @@ class news extends Component {
     componentDidMount(){
         this.props.setNews();
     }
+    handleBack = (e) => {
+        window.location.href = "/"
+    }
     render(){
         const { news } = this.props.data
 
 
         if (news.length > 0){
             return(
+                <Fade>
                 <div>
+                    <button style={{position: "absolute", marginLeft: "30px", textDecoration: "underline",
+                color: "var(--blue1)", backgroundColor: "white", border: "none"}} onClick={this.handleBack}>
+                        Back
+                    </button>
                     <h1 style={{
                         fontFamily: "Circular Std Bold",
                         textAlign: "center",
@@ -37,6 +46,7 @@ class news extends Component {
                         />)}
                     </div>
                 </div>
+                </Fade>
                 )
             }
             else{

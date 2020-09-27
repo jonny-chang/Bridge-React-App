@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import styled from 'styled-components'
 import Background from '../images/signup-background.png';
+import Logo from '../images/logo.png'
 
 // Redux
 import { connect } from 'react-redux';
@@ -103,6 +104,7 @@ class signup extends Component {
             <Fragment>
                 <div>
                     <SignupContainer>
+                        <img src={Logo} style={{height: "100px", position: "absolute", marginLeft: "130px", marginTop: "-10px"}}/>
                         <Title>Signup</Title>
                         <form onSubmit={this.handleSubmit}>
                             <TopInput 
@@ -148,8 +150,8 @@ class signup extends Component {
                         </form>
                     </SignupContainer>
                     <div className="container" style={{paddingTop: "70px", paddingBottom: "70px"}}>
-                        <Title style={{textAlign: "left", fontSize: "3em", marginTop: "0", transform: "translateX(-60px)"}}>Bridge The Gap</Title>
-                        <h5 style={{fontFamily: "Circular Std Book", fontSize: "2em", transform: "translateX(-60px)", marginTop: "15px"}}>Meet new people<br/> Learn new experiences</h5>
+                        <Title style={{textAlign: "left", fontSize: "3em", marginTop: "0", transform: "translateX(-20px)"}}>Bridge The Gap</Title>
+                        <h5 style={{fontFamily: "Circular Std Book", fontSize: "2em", transform: "translateX(-20px)", marginTop: "15px"}}>Meet new people<br/> Learn new experiences</h5>
                     </div>
                 </div>
                 <div 

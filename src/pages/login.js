@@ -7,6 +7,7 @@ import { loginUser } from '../redux/actions/userActions';
 
 import svg1 from '../images/svg1.svg';
 import svg2 from '../images/svg2.svg';
+import Logo from '../images/logo.png';
 
 const LoginContainer = styled.div`
     display: block;
@@ -99,6 +100,7 @@ class login extends Component {
                     </div>
                 )}
                 <LoginContainer>
+                    <img src={Logo} style={{height: "100px", position: "absolute", marginLeft: "130px", marginTop: "-10px"}}/>
                     <Title>Login</Title>
                     <form onSubmit={this.handleSubmit}>
                         <EmailInput 
