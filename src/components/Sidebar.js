@@ -38,7 +38,7 @@ const Tab = styled.h5`
     margin-top: 12px;
     margin-bottom: 12px;
     transition: 0.3s;
-    border-left: 3px solid white;
+    border-left: 5px solid white;
     &:hover {
         border-left: 3px solid var(--blue1);
     }
