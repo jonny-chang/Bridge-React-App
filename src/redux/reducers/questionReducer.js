@@ -1,8 +1,10 @@
-import { SET_ANSWER, SET_STEP, CLEAR_ANSWERS } from '../types'
+import { SET_ANSWER, SET_STEP, CLEAR_ANSWERS, SET_QUESTIONS } from '../types'
 
 const initialState = {
     currentQ: 0,
-    answers: []
+    answers: [],
+    qLength: 0,
+    questions: []
 }
 
 export default function(state = initialState, action){
@@ -19,6 +21,11 @@ export default function(state = initialState, action){
             return(
                 initialState
             )
+        case SET_QUESTIONS:
+            return{
+                questions: action.payload,
+                qLength: action.length
+            }
         default:
             return state
     }
