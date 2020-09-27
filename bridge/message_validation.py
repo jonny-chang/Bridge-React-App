@@ -28,7 +28,7 @@ def profanity_check(text_content):
     f = open("list.txt", "r").read().splitlines()
     for line in f:
         without_line_breaks = line.replace("\n", " ")
-        if (" " + without_line_breaks + " ") in text_content or (" " + without_line_breaks + ".") in text_content.lower():
+        if (without_line_breaks) in text_content.lower().split(" ") or (without_line_breaks + ".") in text_content.lower().split(" "):
             return (True, line)
 
     return (False, None)
