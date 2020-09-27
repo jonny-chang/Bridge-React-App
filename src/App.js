@@ -20,7 +20,6 @@ import { SET_EMAIL } from './redux/types';
 const date = localStorage.exp
 const email = localStorage.email
 const currentDate = new Date().getTime()
-console.log("current: " + currentDate)
 
 if (date){
   if (date * 1000 < currentDate){

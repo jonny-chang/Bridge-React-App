@@ -24,18 +24,21 @@ export default function(state = initialState, action){
             };
         case SET_USER:
             return {
+                ...state,
                 authenticated: true,
                 loading: false,
-                email: action.payload.email,
+                email: action.payload.email
             };
         case SET_USER_ERRORS:
             return{
+                ...state,
                 authenticated: false,
                 loading: false,
                 errors: action.payload.message
             }
         case SET_EMAIL:
             return{
+                ...state,
                 authenticated: true,
                 loading: false,
                 email: action.paylaod,
