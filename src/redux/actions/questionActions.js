@@ -39,9 +39,9 @@ export const getQuestions = () => (dispatch) => {
     
 }
 
-export const analyze = (ans, used_other, id) => (dispatch) => {
+export const analyze = (ans, used_other, id, email) => (dispatch) => {
     if (used_other){
-        fetch(`http://localhost:5000/analyze-answer-sentiment?used_other="true"&id=${id}&text=${ans}`)
+        fetch(`http://localhost:5000/analyze-answer-sentiment?used_other="true"&id=${id}&text=${ans}&email=${email}`)
         .then(res => res.json())
         .then(
             (result) => {
@@ -53,7 +53,7 @@ export const analyze = (ans, used_other, id) => (dispatch) => {
         )
     }
     else {
-        fetch(`http://localhost:5000/analyze-answer-sentiment?used_other=""&id=${id}&sent_score=${ans}`)
+        fetch(`http://localhost:5000/analyze-answer-sentiment?used_other=""&id=${id}&sent_score=${ans}&email=${email}`)
         .then(res => res.json())
         .then(
             (result) => {

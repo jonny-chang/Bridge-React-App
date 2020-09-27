@@ -115,7 +115,7 @@ class question extends Component {
     }
     handleSubmit = (event) => {
         if (this.state.other !== ""){
-            this.props.analyze(this.state.other, true, this.props.questions.currentQ)
+            this.props.analyze(this.state.other, true, this.props.questions.currentQ, this.props.user.email)
             this.props.setStep(this.props.questions.currentQ + 1)
         }
         this.setState({
@@ -123,19 +123,19 @@ class question extends Component {
         })
     }
     handleSAgree = (event) => {
-        this.props.analyze(1, false, this.props.questions.currentQ)
+        this.props.analyze(1, false, this.props.questions.currentQ, this.props.user.email)
         this.props.setStep(this.props.questions.currentQ + 1)
     }
     handleSDisagree = (event) => {
-        this.props.analyze(-1, false, this.props.questions.currentQ)
+        this.props.analyze(-1, false, this.props.questions.currentQ, this.props.user.email)
         this.props.setStep(this.props.questions.currentQ + 1)
     }
     handleAgree = (event) => {
-        this.props.analyze(0.5, false, this.props.questions.currentQ)
+        this.props.analyze(0.5, false, this.props.questions.currentQ, this.props.user.email)
         this.props.setStep(this.props.questions.currentQ + 1)
     }
     handleDisagree = (event) => {
-        this.props.analyze(-0.5, false, this.props.questions.currentQ)
+        this.props.analyze(-0.5, false, this.props.questions.currentQ, this.props.user.email)
         this.props.setStep(this.props.questions.currentQ + 1)
     }
     render(){
